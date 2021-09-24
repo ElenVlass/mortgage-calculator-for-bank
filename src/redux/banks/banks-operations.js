@@ -21,7 +21,7 @@ const BASE_URL = 'https://mortgage-calculator-project.herokuapp.com/api';
 const addBank = newBank => dispatch => {
   const bank = {
     name: newBank.name,
-    interestRate: newBank.number,
+    interestRate: newBank.interestRate,
     maximumLoan: newBank.maximumLoan,
     minimumDownPayment: newBank.minimumDownPayment,
     loanTerm: newBank.loanTerm,
@@ -49,7 +49,7 @@ const updateBank =
   dispatch => {
     const update = {
       name: updatedBank.name,
-      interestRate: updatedBank.number,
+      interestRate: updatedBank.interestRate,
       maximumLoan: updatedBank.maximumLoan,
       minimumDownPayment: updatedBank.minimumDownPayment,
       loanTerm: updatedBank.loanTerm,

@@ -6,11 +6,11 @@
 }
 
 .button {
-  // border: 1px solid $button-active;
+  border: 1px solid $button-active;
   padding: 5px 15px;
   cursor: pointer;
   outline: none;
-  // color: $button-active;
+  color: $button-active;
   background-color: #fff;
   border-radius: 3px;
   margin-left: 15px;
@@ -20,7 +20,7 @@
 
   &:hover,
   &:focus {
-    // background-color: $button-active;
+    background-color: $button-active;
     color: #fff;
     outline: none;
   }
@@ -28,13 +28,13 @@
 
 .span {
   font-size: 400;
-  // color: $button-active;
+  color: $button-active;
   margin-left: 15px;
   flex-shrink: 4;
 
   .button:hover &,
   .button:focus & {
-    // background-color: $button-active;
+    background-color: $button-active;
     color: #fff;
     outline: none;
   }
@@ -42,19 +42,19 @@
 .item {
   display: flex;
   justify-content: space-between;
-  // border: 1px solid $outline-color;
+  border: 1px solid $outline-color;
   border-radius: 4px;
   align-items: center;
   padding: 10px;
   margin-bottom: 10px;
-  width: 450px;
-  // background-color: $back-color;
+  width: 750px;
+  background-color: $back-color;
   &:hover {
-    // background-color: $back-emphasis-color;
+    background-color: $back-emphasis-color;
   }
 }
 .name {
-  // color: $emphasis-text;
+  color: $emphasis-text;
 
   &::before {
     content: '';

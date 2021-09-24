@@ -17,13 +17,32 @@ const {
   updateBankError,
 } = actions;
 
-const banks = createReducer([], {
+const initialState = [
+  {
+    name: 'Bank1',
+    interestRate: 50000,
+    maximumLoan: 2000,
+    minimumDownPayment: 0.2,
+    loanTerm: 10,
+    id: 1,
+  },
+  {
+    name: 'Bank2',
+    interestRate: 40000,
+    maximumLoan: 1500,
+    minimumDownPayment: 0.3,
+    loanTerm: 9,
+    id: 2,
+  },
+];
+
+const banks = createReducer(initialState, {
   [addBankSuccess]: (state, action) => [...state, action.payload],
   [deleteBankSuccess]: (state, { payload }) =>
     state.filter(bank => bank.id !== payload),
   [updateBankSuccess]: (state, { payload }) =>
     state.map(bank => (bank.id === payload.id ? payload : bank)),
-  [fetchBanksSuccess]: (_, { payload }) => payload,
+  [fetchBanksSuccess.type]: (_, { payload }) => payload,
 });
 
 const loading = createReducer(false, {

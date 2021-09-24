@@ -1,8 +1,8 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import routes from './routes';
-// import { bankOperations } from './redux/banks'
+import { bankOperations } from './redux/banks';
 import LoaderSpiner from './components/Loader';
 import Layout from '../src/components/Layout';
 
@@ -16,11 +16,11 @@ const MortgageCalculatorView = lazy(() =>
 );
 
 export default function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(bankOperations.fetchBanks());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(bankOperations.fetchBanks());
+  }, [dispatch]);
   return (
     <Layout>
       <Suspense fallback={<LoaderSpiner />}>

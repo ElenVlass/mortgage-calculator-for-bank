@@ -1,63 +1,59 @@
-import React, { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import styles from './BankList.module.scss';
 import LoaderSpiner from '../Loader';
-import { bankSelectors, bankOperations } from '../../redux/banks';
 
-export default function BankList({ children, ...allysProps }) {
-  const dispatch = useDispatch();
+class BankList extends Component {
+  static defaultProps = {
+    onDelete: () => null,
+    children: null,
+  };
 
-  const onDelete = id => dispatch(bankOperations.deleteBank(id));
-  const list = useSelector(bankSelectors.getAllBanks);
-  const isLoading = useSelector(bankSelectors.getIsLoading);
+  componentDidMount() {
+    this.props.fetchBanks();
+  }
 
-  const onFetchBanks = useCallback(
-    () => dispatch(bankOperations.fetchBanks()),
-    [dispatch],
-  );
-  useEffect(() => onFetchBanks(), [onFetchBanks]);
+  render() {
+    const { list, onDelete, allysProps, children, isLoading } = this.props;
 
-  return (
-    <>
-      {isLoading && <LoaderSpiner />}
-      <ul className={styles.list}>
-        {list.map(
-          ({
-            id,
-            name,
-            interestRate,
-            maximumLoan,
-            minimumDownPayment,
-            loanTerm,
-          }) => (
-            <li key={id} className={styles.item}>
-              <div>
-                <span className={styles.name}>{name}</span>
-                <span className={styles.name}>{interestRate}</span>
-                <span className={styles.name}>{interestRate}</span>
-                <span className={styles.name}>{maximumLoan}</span>
-                <span className={styles.name}>{minimumDownPayment}</span>
-                <span className={styles.name}>{loanTerm}</span>
-              </div>
+    return (
+      <>
+        {isLoading && <LoaderSpiner />}
+        <ul className={styles.list}>
+          {list.map(
+            ({
+              id,
+              name,
+              interestRate,
+              maximumLoan,
+              minimumDownPayment,
+              loanTerm,
+            }) => (
+              <li key={id} className={styles.item}>
+                <div>
+                  <span className={styles.name}>{name}</span>
+                  <span className={styles.name}>{interestRate}</span>
+                  <span className={styles.name}>{interestRate}</span>
+                  <span className={styles.name}>{maximumLoan}</span>
+                  <span className={styles.name}>{minimumDownPayment}</span>
+                  <span className={styles.name}>{loanTerm}</span>
+                </div>
 
-              <button
-                className={styles.button}
-                type="button"
-                onClick={() => onDelete(id)}
-                {...allysProps}
-              >
-                {children}
-                <span className={styles.span}>Delete</span>
-              </button>
-            </li>
-          ),
-        )}
-      </ul>
-    </>
-  );
+                <button
+                  className={styles.button}
+                  type="button"
+                  onClick={() => onDelete(id)}
+                  {...allysProps}
+                >
+                  {children}
+                  <span className={styles.span}>Delete</span>
+                </button>
+              </li>
+            ),
+          )}
+        </ul>
+      </>
+    );
+  }
 }
 
-// BankList.propTypes = {
-//   'aria-label': PropTypes.string.isRequired,
-// };
+export default BankList;

@@ -1,1 +1,1 @@
-export { default } from './BankList';
+export { default } from './BankList.container';
