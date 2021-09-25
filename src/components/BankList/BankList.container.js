@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onDelete: id => dispatch(bankOperations.deleteBank(id)),
+  onEdit: id => dispatch(bankOperations.updateBank(id)),
   fetchBanks: () => dispatch(bankOperations.fetchBanks()),
 });
 

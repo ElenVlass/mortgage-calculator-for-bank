@@ -6,29 +6,43 @@ class BankList extends Component {
   static defaultProps = {
     onDelete: () => null,
     children: null,
+    onEdit: () => null,
   };
 
   componentDidMount() {
     this.props.fetchBanks();
   }
 
+  onDeleteHandler = (id, _id) => () => {
+    const { onDelete } = this.props;
+    onDelete(id || _id);
+  };
+
+  onEditHandler = (id, _id) => () => {
+    const { onEdit } = this.props;
+    onEdit(id || _id);
+  };
+
   render() {
-    const { list, onDelete, allysProps, children, isLoading } = this.props;
+    const { list, allysProps, children, isLoading } = this.props;
 
     return (
       <>
         {isLoading && <LoaderSpiner />}
         <ul className={styles.list}>
-          {list.map(
-            ({
+          {list.map(bank => {
+            if (!bank) return null;
+            const {
               id,
+              _id,
               name,
               interestRate,
               maximumLoan,
               minimumDownPayment,
               loanTerm,
-            }) => (
-              <li key={id} className={styles.item}>
+            } = bank;
+            return (
+              <li key={`${id || _id}-key`} className={styles.item}>
                 <div>
                   <span className={styles.name}>{name}</span>
                   <span className={styles.name}>{interestRate}</span>
@@ -41,15 +55,25 @@ class BankList extends Component {
                 <button
                   className={styles.button}
                   type="button"
-                  onClick={() => onDelete(id)}
+                  onClick={this.onDeleteHandler(id, _id)}
+                  {...allysProps}
+                >
+                  {children}
+                  <span className={styles.span}>Edit</span>
+                </button>
+
+                <button
+                  className={styles.button}
+                  type="button"
+                  onClick={this.onEditHandler(id, _id)}
                   {...allysProps}
                 >
                   {children}
                   <span className={styles.span}>Delete</span>
                 </button>
               </li>
-            ),
-          )}
+            );
+          })}
         </ul>
       </>
     );

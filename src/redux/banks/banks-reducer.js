@@ -37,12 +37,18 @@ const initialState = [
 ];
 
 const banks = createReducer(initialState, {
-  [addBankSuccess]: (state, action) => [...state, action.payload],
-  [deleteBankSuccess]: (state, { payload }) =>
-    state.filter(bank => bank.id !== payload),
+  [addBankSuccess]: (state, action) => {
+    return [...state, action.payload];
+  },
+  [deleteBankSuccess]: (state, { payload }) => {
+    debugger;
+    return state.filter(bank => bank._id !== payload && bank.id !== payload);
+  },
   [updateBankSuccess]: (state, { payload }) =>
     state.map(bank => (bank.id === payload.id ? payload : bank)),
-  [fetchBanksSuccess.type]: (_, { payload }) => payload,
+  [fetchBanksSuccess.type]: (_, { payload }) => {
+    return payload;
+  },
 });
 
 const loading = createReducer(false, {

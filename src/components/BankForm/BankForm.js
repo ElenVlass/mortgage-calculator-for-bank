@@ -44,15 +44,6 @@ function BankForm({ children, ...allyProps }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(
-      bankOperations.addBank({
-        name,
-        interestRate,
-        maximumLoan,
-        minimumDownPayment,
-        loanTerm,
-      }),
-    );
 
     isBankExist()
       ? alert('This bank already exist')

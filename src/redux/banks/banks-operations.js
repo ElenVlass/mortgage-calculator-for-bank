@@ -16,7 +16,6 @@ import {
 } from './banks-actions';
 
 const BASE_URL = 'https://mortgage-calculator-project.herokuapp.com/api';
-// const BASE_URL = 'http://localhost:4000/api/'
 
 const addBank = newBank => dispatch => {
   const bank = {
@@ -31,7 +30,9 @@ const addBank = newBank => dispatch => {
 
   axios
     .post(`${BASE_URL}/banks`, bank)
-    .then(({ data }) => dispatch(addBankSuccess(data)))
+    .then(({ data }) => {
+      return dispatch(addBankSuccess(data.result));
+    })
     .catch(erorr => dispatch(addBankError(erorr)));
 };
 
@@ -68,7 +69,7 @@ const fetchBanks = () => async dispatch => {
 
   try {
     const response = await axios.get(`${BASE_URL}/banks`);
-    dispatch(fetchBanksSuccess(response.data.banks));
+    dispatch(fetchBanksSuccess(response.data.data.banks));
   } catch (error) {
     dispatch(fetchBanksError(error));
   }

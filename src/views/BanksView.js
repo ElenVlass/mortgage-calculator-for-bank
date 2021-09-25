@@ -6,8 +6,6 @@ import BankForm from '../components/BankForm';
 const BanksView = () => {
   return (
     <>
-      <h2>Add bank</h2>
-      <h2>Banks</h2>
       <BankList />
       <BankForm />
     </>
